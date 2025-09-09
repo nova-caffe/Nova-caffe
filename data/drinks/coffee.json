@@ -1,1 +1,17 @@
-
+{
+  "category": "القهوة والمشروبات الساخنة",
+  "items": [
+    {
+      "name": "إسبريسو",
+      "nameEn": "Espresso",
+      "price": "25 ج.م",
+      "icon": "fas fa-coffee"
+    },
+    {
+      "name": "لاتيه",
+      "nameEn": "Latte",
+      "price": "30 ج.م",
+      "icon": "fas fa-mug-hot"
+    }
+  ]
+}
