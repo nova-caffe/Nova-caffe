@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOVA Cafe - قائمة المشروبات</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <!-- روابط خطوط Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -45,6 +50,7 @@
             color: var(--text-light);
         }
 
+        /* تأثيرات الخلفية المتحركة */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -119,6 +125,7 @@
             position: relative;
         }
 
+        /* أزرار التحكم */
         .control-buttons {
             position: fixed;
             top: 20px;
@@ -148,6 +155,7 @@
             background: var(--secondary-color);
         }
 
+        /* العناصر الزخرفية */
         .branch {
             position: absolute;
             color: var(--primary-color);
@@ -190,6 +198,7 @@
             color: var(--secondary-color);
         }
 
+        /* الرأس */
         .header {
             text-align: center;
             margin-bottom: 60px;
@@ -235,6 +244,7 @@
             color: var(--secondary-color);
         }
 
+        /* تخطيط المحتوى */
         .content-wrapper {
             display: flex;
             justify-content: space-between;
@@ -319,6 +329,7 @@
             color: var(--secondary-color);
         }
 
+        /* صور أطباق الطعام */
         .food-plate {
             width: 220px;
             height: 220px;
@@ -337,23 +348,24 @@
         }
 
         .coffee-plate {
-            background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');
+            background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==&auto=format&fit=crop&w=500&q=80');
             top: -50px;
             right: -110px;
         }
 
         .dessert-plate {
-            background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');
+            background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==&auto=format&fit=crop&w=500&q=80');
             top: 100px;
             left: -110px;
         }
 
         .beverage-plate {
-            background-image: url('https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');
+            background-image: url('https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==&auto=format&fit=crop&w=500&q=80');
             bottom: -50px;
             right: -110px;
         }
 
+        /* تعديلات التخطيط */
         .left-column {
             width: 45%;
         }
@@ -366,6 +378,7 @@
             margin-top: 50px;
         }
 
+        /* التذييل */
         .footer {
             text-align: center;
             margin-top: 80px;
@@ -414,6 +427,7 @@
             color: #fff;
         }
 
+        /* حقوق النشر والمصمم */
         .copyright {
             text-align: center;
             margin-top: 40px;
@@ -441,7 +455,6 @@
             z-index: 1000;
             border: 1px solid rgba(212, 175, 55, 0.3);
             transition: all 0.3s ease;
-            text-decoration: none;
         }
 
         .designer-button:hover {
@@ -455,6 +468,7 @@
             border: 1px solid rgba(139, 69, 19, 0.3);
         }
 
+        /* التصميم المتجاوب */
         @media (max-width: 1200px) {
             .food-plate {
                 width: 180px;
@@ -538,6 +552,7 @@
             }
         }
 
+        /* خطوط زخرفية */
         .line-decoration {
             position: absolute;
             height: 2px;
@@ -566,16 +581,10 @@
             right: 10%;
             width: 60%;
         }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: var(--primary-color);
-            font-style: italic;
-        }
     </style>
 </head>
 <body class="dark-mode">
+    <!-- تأثيرات الخلفية المتحركة -->
     <div class="bg-animation">
         <div class="circle"></div>
         <div class="circle"></div>
@@ -583,10 +592,12 @@
         <div class="circle"></div>
     </div>
 
+    <!-- الخطوط الزخرفية -->
     <div class="line-decoration line-1"></div>
     <div class="line-decoration line-2"></div>
     <div class="line-decoration line-3"></div>
 
+    <!-- أزرار التحكم -->
     <div class="control-buttons">
         <button class="theme-toggle" id="themeToggle">
             <i class="fas fa-sun"></i>
@@ -597,72 +608,112 @@
     </div>
 
     <div class="menu-container">
+        <!-- العناصر الزخرفية -->
         <div class="branch branch-top-left"></div>
         <div class="branch branch-top-right"></div>
         <div class="branch branch-bottom-left"></div>
         <div class="branch branch-bottom-right"></div>
 
-        <div class="header">
+        <!-- الرأس -->
+        <div class="header" id="header">
             <div class="website">www.novacafe.com</div>
-            <h1 class="title" data-ar="قائمة المشروبات" data-en="DRINKS MENU">قائمة المشروبات</h1>
+            <h1 class="title" id="pageTitle" data-ar="قائمة المشروبات" data-en="DRINKS MENU">قائمة المشروبات</h1>
             <div class="subtitle" data-ar="كافيه نوفا" data-en="NOVA Cafe">كافيه نوفا</div>
         </div>
 
-        <div class="content-wrapper">
+        <!-- المحتوى -->
+        <div class="content-wrapper" id="contentWrapper">
+            <!-- العمود الأيسر -->
             <div class="left-column">
+                <!-- قسم القهوة -->
                 <div class="menu-section">
                     <div class="section-title" data-ar="القهوة والمشروبات الساخنة" data-en="COFFEE & HOT DRINKS">القهوة والمشروبات الساخنة</div>
                     <div class="food-plate coffee-plate"></div>
-                    <div class="loading" data-ar="جاري تحميل المشروبات..." data-en="Loading drinks...">جاري تحميل المشروبات...</div>
+                    <ul class="menu-list" id="coffee-hot-drinks-list">
+                        <!-- سيتم ملؤه ديناميكيًا من Firebase -->
+                    </ul>
                 </div>
 
+                <!-- قسم المشروبات الغازية -->
                 <div class="menu-section">
                     <div class="section-title" data-ar="المشروبات الغازية" data-en="SOFT DRINKS">المشروبات الغازية</div>
-                    <div class="loading" data-ar="جاري تحميل المشروبات..." data-en="Loading drinks...">جاري تحميل المشروبات...</div>
+                    <ul class="menu-list" id="soft-drinks-list">
+                        <!-- سيتم ملؤه ديناميكيًا من Firebase -->
+                    </ul>
                 </div>
             </div>
 
+            <!-- العمود الأيمن -->
             <div class="right-column">
+                <!-- قسم الحلويات -->
                 <div class="menu-section">
                     <div class="section-title" data-ar="الحلويات" data-en="DESSERTS">الحلويات</div>
                     <div class="food-plate dessert-plate"></div>
-                    <div class="loading" data-ar="جاري تحميل الحلويات..." data-en="Loading desserts...">جاري تحميل الحلويات...</div>
+                    <ul class="menu-list" id="desserts-list">
+                        <!-- سيتم ملؤه ديناميكيًا من Firebase -->
+                    </ul>
                 </div>
 
+                <!-- قسم المشروبات الباردة -->
                 <div class="menu-section beverage-section">
                     <div class="section-title" data-ar="المشروبات الباردة" data-en="COLD DRINKS">المشروبات الباردة</div>
                     <div class="food-plate beverage-plate"></div>
-                    <div class="loading" data-ar="جاري تحميل المشروبات..." data-en="Loading drinks...">جاري تحميل المشروبات...</div>
+                    <ul class="menu-list" id="cold-drinks-list">
+                        <!-- سيتم ملؤه ديناميكيًا من Firebase -->
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
+        <!-- التذييل -->
+        <div class="footer" id="footer">
             <div class="phone"><i class="fas fa-phone"></i> <span>+20 123 456 7890</span></div>
-            <a href="https://nova-caffe.github.io/Nova-caffe/Home" class="back-button">
+            <a href="https://nova-caffe.github.io/Nova-caffe/" class="back-button" id="backButton">
                 <i class="fas fa-arrow-left"></i>
                 <span data-ar="العودة للصفحة الرئيسية" data-en="Back to Home">العودة للصفحة الرئيسية</span>
             </a>
         </div>
 
-        <div class="copyright">
+        <!-- حقوق النشر -->
+        <div class="copyright" id="copyright">
             <p>© 2025 جميع الحقوق محفوظة لدي <span>kerolos sobhy</span></p>
         </div>
     </div>
 
-    <a href="https://nova-caffe.github.io/Nova-caffe/koko" class="designer-button">
+    <!-- زر المصمم -->
+    <button class="designer-button" id="designerButton">
         designer by kerolos sobhy
-    </a>
+    </button>
 
     <script>
+        // تهيئة Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcxGOaiiy6Dy1MybOIOxn69xab4rsOOJ0",
+            authDomain: "koko-caffe.firebaseapp.com",
+            databaseURL: "https://koko-caffe-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "koko-caffe",
+            storageBucket: "koko-caffe.firebasestorage.app",
+            messagingSenderId: "382318796715",
+            appId: "1:382318796715:web:ee9f3aca9a107f86da7cee",
+            measurementId: "G-B83G77QPWW"
+        };
+        
+        // تهيئة Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        // كشف اللغة الافتراضية للمتصفح
         const userLanguage = navigator.language || navigator.userLanguage;
         const isArabic = userLanguage.startsWith('ar');
         
+        // عناصر DOM للتبديل بين الوضع الداكن والفاتح واللغة
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         const languageToggle = document.getElementById('languageToggle');
         const themeIcon = themeToggle.querySelector('i');
+        const designerButton = document.getElementById('designerButton');
         
+        // تهيئة الوضع واللغة
         if (localStorage.getItem('theme') === 'light') {
             enableLightMode();
         } else {
@@ -675,6 +726,7 @@
             setTimeout(switchToArabic, 100);
         }
         
+        // وظيفة تمكين الوضع الداكن
         function enableDarkMode() {
             body.classList.add('dark-mode');
             body.classList.remove('light-mode');
@@ -683,6 +735,7 @@
             localStorage.setItem('theme', 'dark');
         }
         
+        // وظيفة تمكين الوضع الفاتح
         function enableLightMode() {
             body.classList.remove('dark-mode');
             body.classList.add('light-mode');
@@ -691,6 +744,7 @@
             localStorage.setItem('theme', 'light');
         }
         
+        // وظيفة التبديل إلى العربية
         function switchToArabic() {
             document.documentElement.lang = 'ar';
             document.documentElement.dir = 'rtl';
@@ -700,6 +754,7 @@
             localStorage.setItem('language', 'ar');
         }
         
+        // وظيفة التبديل إلى الإنجليزية
         function switchToEnglish() {
             document.documentElement.lang = 'en';
             document.documentElement.dir = 'ltr';
@@ -709,6 +764,96 @@
             localStorage.setItem('language', 'en');
         }
         
+        // فتح رابط المصمم
+        function openDesignerLink() {
+            window.open('https://nova-caffe.github.io/Nova-caffe/koko', '_blank');
+        }
+        
+        // جلب البيانات من Firebase وعرضها
+        function loadMenuData() {
+            // أقسام القائمة
+            const sections = [
+                'COFFEE_HOT_DRINKS',
+                'SOFT_DRINKS', 
+                'DESSERTS',
+                'COLD_DRINKS'
+            ];
+            
+            sections.forEach(section => {
+                const listElement = document.getElementById(`${section.toLowerCase().replace(/_/g, '-')}-list`);
+                
+                database.ref(section).once('value')
+                    .then(snapshot => {
+                        const data = snapshot.val();
+                        if (data) {
+                            // مسح المحتوى الحالي
+                            listElement.innerHTML = '';
+                            
+                            // إضافة العناصر الجديدة
+                            Object.entries(data).forEach(([key, item]) => {
+                                const listItem = document.createElement('li');
+                                listItem.className = 'menu-item';
+                                
+                                const iconClass = getIconClass(item.nameAr || item.nameEn);
+                                
+                                listItem.innerHTML = `
+                                    <span class="item-name">
+                                        <i class="${iconClass}"></i> 
+                                        <span data-ar="${item.nameAr || item.name}" data-en="${item.nameEn || item.name}">${document.documentElement.lang === 'ar' ? (item.nameAr || item.name) : (item.nameEn || item.name)}</span>
+                                    </span>
+                                    <span class="item-price">${item.price} ج.م</span>
+                                `;
+                                
+                                listElement.appendChild(listItem);
+                            });
+                        } else {
+                            listElement.innerHTML = '<li class="menu-item">لا توجد عناصر في هذا القسم</li>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error loading ${section}:`, error);
+                        listElement.innerHTML = '<li class="menu-item">خطأ في تحميل البيانات</li>';
+                    });
+            });
+        }
+        
+        // الحصول على الأيقونة المناسبة حسب اسم العنصر
+        function getIconClass(itemName) {
+            const icons = {
+                'قهوة': 'fas fa-coffee',
+                'شاي': 'fas fa-mug-hot',
+                'إسبريسو': 'fas fa-coffee',
+                'لاتيه': 'fas fa-mug-hot',
+                'كابتشينو': 'fas fa-mug-hot',
+                'موكا': 'fas fa-mug-hot',
+                'كوكا كولا': 'fas fa-glass-whiskey',
+                'بيبسي': 'fas fa-glass-whiskey',
+                'سفن أب': 'fas fa-glass-whiskey',
+                'ميرندا': 'fas fa-glass-whiskey',
+                'فانتا': 'fas fa-glass-whiskey',
+                'تشيز كيك': 'fas fa-cookie',
+                'كيكة الشوكولاتة': 'fas fa-birthday-cake',
+                'ماكاريون': 'fas fa-ice-cream',
+                'تيراميسو': 'fas fa-pie',
+                'كوكيز': 'fas fa-cookie-bite',
+                'عصير برتقال': 'fas fa-glass-whiskey',
+                'ميلك شيك': 'fas fa-cocktail',
+                'آيسد لاتيه': 'fas fa-glass-whiskey',
+                'ليموناضة': 'fas fa-lemon',
+                'أسموزي': 'fas fa-tint'
+            };
+            
+            // البحث عن أيقونة مطابقة
+            for (const [key, value] of Object.entries(icons)) {
+                if (itemName.includes(key)) {
+                    return value;
+                }
+            }
+            
+            return 'fas fa-utensils';
+        }
+        
+        // أحداث النقر للأزرار
         themeToggle.addEventListener('click', () => {
             if (body.classList.contains('dark-mode')) {
                 enableLightMode();
@@ -723,20 +868,17 @@
             } else {
                 switchToArabic();
             }
+            // إعادة تحميل البيانات بعد تغيير اللغة
+            loadMenuData();
         });
         
+        designerButton.addEventListener('click', openDesignerLink);
+        
+        // تحميل البيانات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
-            const menuSections = document.querySelectorAll('.menu-section');
-            menuSections.forEach((section, index) => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
-                setTimeout(() => {
-                    section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
-                }, index * 300);
-            });
+            loadMenuData();
             
+            // تأثيرات التمرير للصور
             const plates = document.querySelectorAll('.food-plate');
             plates.forEach(plate => {
                 plate.addEventListener('mouseenter', function() {
@@ -751,6 +893,7 @@
                 });
             });
             
+            // تأثيرات التمرير للفروع
             window.addEventListener('scroll', function() {
                 const scrolled = window.pageYOffset;
                 const branches = document.querySelectorAll('.branch');
@@ -759,6 +902,7 @@
                     branch.style.transform = `rotate(${index % 2 ? 15 : -15}deg) translateY(${scrolled * speed}px)`;
                 });
                 
+                // تحريك دوائر الخلفية أيضًا
                 const circles = document.querySelectorAll('.bg-animation .circle');
                 circles.forEach((circle, index) => {
                     const speed = 0.2 + (index * 0.1);
@@ -766,14 +910,27 @@
                 });
             });
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof loadDrinksMenu === 'function') {
-                loadDrinksMenu();
+        
+        // تعديلات للتصميم المتجاوب
+        function adjustLayout() {
+            const plates = document.querySelectorAll('.food-plate');
+            if (window.innerWidth <= 768) {
+                plates.forEach(plate => {
+                    plate.style.position = 'static';
+                    plate.style.margin = '20px auto';
+                    plate.style.display = 'block';
+                });
+            } else {
+                plates.forEach((plate, index) => {
+                    plate.style.position = 'absolute';
+                    plate.style.margin = '0';
+                    plate.style.display = 'block';
+                });
             }
-        });
+        }
+        
+        window.addEventListener('resize', adjustLayout);
+        adjustLayout();
     </script>
-    
-    <script src="js/load-menu.js">
-    </scrit>
 </body>
 </html>
