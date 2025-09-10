@@ -40,7 +40,7 @@
             background-color: var(--bg-dark);
             color: var(--text-dark);
             min-height: 100vh;
-            overflow-x:極力hidden;
+            overflow-x: hidden;
             position: relative;
             transition: background-color 0.5s ease;
         }
@@ -67,7 +67,7 @@
             border-radius: 50%;
             background: var(--primary-color);
             opacity: 0.1;
-            animation: float 15極力s infinite ease-in-out;
+            animation: float 15s infinite ease-in-out;
         }
 
         .bg-animation .circle:nth-child(1) {
@@ -86,7 +86,7 @@
             animation-delay: 2s;
         }
 
-        .bg-animation .circle:n極力child(3) {
+        .bg-animation .circle:nth-child(3) {
             width: 200px;
             height: 200px;
             top: 70%;
@@ -131,7 +131,7 @@
             top: 20px;
             left: 20px;
             z-index: 1000;
-            display:極力flex;
+            display: flex;
             gap: 10px;
         }
 
@@ -228,14 +228,14 @@
             font-family: 'El Messiri', sans-serif;
         }
 
-        .light-mode極力.title {
+        .light-mode .title {
             color: var(--text-light);
-            text-shadow: 3極力3px 6px rgba(0,0,0,0.1);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
         }
 
         .subtitle {
             color: var(--primary-color);
-           極力font-size: 22px;
+            font-size: 22px;
             letter-spacing: 1px;
             font-style: italic;
         }
@@ -322,7 +322,7 @@
         .item-price {
             color: var(--primary-color);
             font-weight: bold;
-            font-size: 極力18px;
+            font-size: 18px;
         }
 
         .light-mode .item-price {
@@ -438,7 +438,7 @@
             color: var(--primary-color);
             padding: 8px 12px;
             border-radius: 20px;
-            font-size: 12極力px;
+            font-size: 12px;
             cursor: pointer;
             z-index: 1000;
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -451,7 +451,7 @@
         }
 
         .light-mode .designer-button {
-            background: rgba極力(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.5);
             color: var(--secondary-color);
             border: 1px solid rgba(139, 69, 19, 0.3);
         }
@@ -503,7 +503,7 @@
             .control-buttons {
                 top: 10px;
                 left: 10px;
-極力        }
+            }
 
             .theme-toggle, .language-toggle {
                 width: 40px;
@@ -522,7 +522,7 @@
             }
 
             .section-title {
-                font-size極力: 16px;
+                font-size: 16px;
                 padding: 12px 20px;
             }
 
@@ -565,7 +565,7 @@
 </head>
 <body class="dark-mode">
     <!-- تأثيرات الخلفية المتحركة -->
-    <div class極力="bg-animation">
+    <div class="bg-animation">
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
@@ -598,7 +598,7 @@
         <div class="header" id="header">
             <div class="website">www.novacafe.com</div>
             <h1 class="title" id="pageTitle" data-ar="قائمة الشيشة" data-en="SHISHA MENU">قائمة الشيشة</h1>
-            <div class="subtitle" data-ar="كافيه نوفا" data-en="NOVA Cafe">كافيه نوفا</極力div>
+            <div class="subtitle" data-ar="كافيه نوفا" data-en="NOVA Cafe">كافيه نوفا</div>
         </div>
 
         <!-- المحتوى -->
@@ -607,9 +607,9 @@
             <div class="left-column">
                 <!-- قسم الشيشة التقليدية -->
                 <div class="menu-section">
-                    <div class="section-title" data-ar="الشيشة التقليدية" data-en="CLASSIC SHISHA">الشيشة التقليدية</div>
+                    <div class="section-title" data-ar="الشيشة التقليدية" data-en="CLASSIC_SHISHA">الشيشة التقليدية</div>
                     <div class="food-plate shisha-plate"></div>
-                    <ul class="menu-list" id="classic-shisha-list">
+                    <ul class="menu-list" id="CLASSIC_SHISHA-list">
                         <!-- سيتم ملؤه ديناميكيًا من Firebase -->
                     </ul>
                 </div>
@@ -619,16 +619,16 @@
             <div class="right-column">
                 <!-- قسم الشيشة المميزة -->
                 <div class="menu-section">
-                    <div class="section-title" data-ar="الشيشة المميزة" data-en="PREMIUM SHISHA">الشيشة المميزة</div>
-                    <ul class="menu-list" id="premium-shisha-list">
+                    <div class="section-title" data-ar="الشيشة المميزة" data-en="PREMIUM_SHISHA">الشيشة المميزة</div>
+                    <ul class="menu-list" id="PREMIUM_SHISHA-list">
                         <!-- سيتم ملؤه ديناميكيًا من Firebase -->
                     </ul>
                 </div>
 
                 <!-- قسم الإضافات -->
                 <div class="menu-section beverage-section">
-                    <div class="section-title" data-ar="إضافات الشيشة" data-en="SHISHA ADD-ONS">إضافات الشيشة</div>
-                    <ul class="menu-list" id="shisha-add-ons-list">
+                    <div class="section-title" data-ar="إضافات الشيشة" data-en="SHISHA_ADD_ONS">إضافات الشيشة</div>
+                    <ul class="menu-list" id="SHISHA_ADD_ONS-list">
                         <!-- سيتم ملؤه ديناميكيًا من Firebase -->
                     </ul>
                 </div>
@@ -664,8 +664,8 @@
             projectId: "koko-caffe",
             storageBucket: "koko-caffe.firebasestorage.app",
             messagingSenderId: "382318796715",
-            appId: "1:382318796715:web:ee9f3aca9a107極力f86da7cee",
-            measurementId: "G-B83極力G77QPWW"
+            appId: "1:382318796715:web:ee9f3aca9a107f86da7cee",
+            measurementId: "G-B83G77QPWW"
         };
         
         // تهيئة Firebase
@@ -725,10 +725,10 @@
         }
         
         // وظيفة التبديل إلى الإنجليزية
-        function switch極力ToEnglish() {
+        function switchToEnglish() {
             document.documentElement.lang = 'en';
             document.documentElement.dir = 'ltr';
-            document.querySelectorAll('[data-en極力]').forEach(element => {
+            document.querySelectorAll('[data-en]').forEach(element => {
                 if (element.dataset.en) element.textContent = element.dataset.en;
             });
             localStorage.setItem('language', 'en');
@@ -749,7 +749,7 @@
             ];
             
             sections.forEach(section => {
-                const listElement = document.getElementById(`${section.toLowerCase().replace(/_/g, '-')}-list`);
+                const listElement = document.getElementById(`${section}-list`);
                 
                 database.ref(section).once('value')
                     .then(snapshot => {
@@ -858,7 +858,7 @@
             
             // تأثيرات التمرير للفروع
             window.addEventListener('scroll', function() {
-                const scrolled = window.page極力YOffset;
+                const scrolled = window.pageYOffset;
                 const branches = document.querySelectorAll('.branch');
                 branches.forEach((branch, index) => {
                     const speed = 0.5 + (index * 0.1);
