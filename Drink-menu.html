@@ -766,7 +766,14 @@
                 });
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof loadDrinksMenu === 'function') {
+                loadDrinksMenu();
+            }
+        });
     </script>
-    <script src="js/load-menu.js"></script>
+    
+    <script src="js/load-menu.js">
+    </scrit>
 </body>
 </html>
