@@ -1,82 +1,46 @@
-// js/load-menu.js - ملف تحميل البيانات الديناميكي
-class MenuLoader {
-    constructor() {
-        this.baseUrl = 'https://nova-caffe.github.io/Nova-caffe/data';
-        this.currentPage = this.getCurrentPage();
-    }
+// قاعدة URL للبيانات
+const baseUrl = 'https://nova-caffe.github.io/Nova-caffe/data';
 
-    // تحديد الصفحة الحالية بناءً على اسم الملف
-    getCurrentPage() {
-        const path = window.location.pathname;
-        if (path.includes('Drink-menu')) return 'drinks';
-        if (path.includes('Food-menu')) return 'food';
-        if (path.includes('shesha-menu')) return 'shesha';
+// دالة تحميل البيانات من JSON
+async function loadJsonData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to load data:', error);
         return null;
     }
+}
 
-    // تحميل بيانات القسم المحدد
-    async loadSectionData(section) {
-        try {
-            const response = await fetch(`${this.baseUrl}/${this.currentPage}/${section}.json`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return await response.json();
-        } catch (error) {
-            console.error(`Failed to load ${section}:`, error);
-            return this.getDefaultData(section);
-        }
+// دالة عرض البيانات في القسم
+function renderSection(sectionId, data) {
+    const section = document.getElementById(sectionId);
+    if (!section || !data) return;
+
+    // إزالة رسالة التحميل
+    const loadingElement = section.querySelector('.loading');
+    if (loadingElement) {
+        loadingElement.remove();
     }
 
-    // بيانات افتراضية في حالة فشل التحميل
-    getDefaultData(section) {
-        const defaults = {
-            drinks: {
-                coffee: { category: "القهوة والمشروبات الساخنة", items: [] },
-                'soft-drinks': { category: "المشروبات الغازية", items: [] },
-                desserts: { category: "الحلويات", items: [] },
-                'cold-drinks': { category: "المشروبات الباردة", items: [] }
-            },
-            food: {
-                'main-dishes': { category: "الوجبات الرئيسية", items: [] },
-                'add-ons': { category: "الإضافات", items: [] }
-            },
-            shesha: {
-                classic: { category: "الشيشة التقليدية", items: [] },
-                premium: { category: "الشيشة المميزة", items: [] },
-                'add-ons': { category: "إضافات الشيشة", items: [] }
-            }
-        };
-
-        return defaults[this.currentPage]?.[section] || { category: section, items: [] };
+    // تحديث عنوان القسم
+    const titleElement = section.querySelector('.section-title');
+    if (titleElement && data.category) {
+        titleElement.textContent = data.category;
     }
 
-    // عرض البيانات في القسم المحدد
-    async renderSection(sectionId, dataKey) {
-        const sectionElement = document.getElementById(sectionId);
-        if (!sectionElement) return;
+    // إنشاء قائمة العناصر
+    const menuList = section.querySelector('.menu-list') || document.createElement('ul');
+    if (!section.querySelector('.menu-list')) {
+        menuList.className = 'menu-list';
+        section.appendChild(menuList);
+    } else {
+        menuList.innerHTML = '';
+    }
 
-        const data = await this.loadSectionData(dataKey);
-        const loadingElement = sectionElement.querySelector('.loading');
-        
-        if (loadingElement) {
-            loadingElement.remove();
-        }
-
-        // تحديث عنوان القسم
-        const titleElement = sectionElement.querySelector('.section-title');
-        if (titleElement && data.category) {
-            titleElement.textContent = data.category;
-        }
-
-        // إنشاء قائمة العناصر
-        const menuList = sectionElement.querySelector('.menu-list') || document.createElement('ul');
-        if (!sectionElement.querySelector('.menu-list')) {
-            menuList.className = 'menu-list';
-            sectionElement.appendChild(menuList);
-        } else {
-            menuList.innerHTML = '';
-        }
-
-        // إضافة العناصر إلى القائمة
+    // إضافة العناصر إلى القائمة
+    if (data.items && data.items.length > 0) {
         data.items.forEach(item => {
             const listItem = document.createElement('li');
             listItem.className = 'menu-item';
@@ -91,76 +55,76 @@ class MenuLoader {
 
             menuList.appendChild(listItem);
         });
-
-        // إضافة تأثيرات التفاعل للعناصر الجديدة
-        this.addMenuInteractions();
     }
 
-    // إضافة تأثيرات التفاعل لعناصر القائمة
-    addMenuInteractions() {
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = 'rgba(212, 175, 55, 0.15)';
-                this.style.transform = 'translateX(10px)';
-                this.style.transition = 'all 0.3s ease';
-                this.style.borderLeft = '4px solid var(--primary-color)';
-                this.style.paddingLeft = '10px';
-            });
+    // إضافة تأثيرات التفاعل
+    addMenuInteractions();
+}
 
-            item.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = 'transparent';
-                this.style.transform = 'translateX(0)';
-                this.style.borderLeft = 'none';
-                this.style.paddingLeft = '0';
-            });
+// إضافة تأثيرات التفاعل
+function addMenuInteractions() {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = 'rgba(212, 175, 55, 0.15)';
+            this.style.transform = 'translateX(10px)';
+            this.style.transition = 'all 0.3s ease';
+            this.style.borderLeft = '4px solid var(--primary-color)';
+            this.style.paddingLeft = '10px';
         });
-    }
 
-    // تحميل جميع أقسام الصفحة
-    async loadAllSections() {
-        if (!this.currentPage) return;
+        item.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = 'transparent';
+            this.style.transform = 'translateX(0)';
+            this.style.borderLeft = 'none';
+            this.style.paddingLeft = '0';
+        });
+    });
+}
 
-        const sections = {
-            drinks: [
-                { id: 'coffee-section', key: 'coffee' },
-                { id: 'soft-drinks-section', key: 'soft-drinks' },
-                { id: 'desserts-section', key: 'desserts' },
-                { id: 'cold-drinks-section', key: 'cold-drinks' }
-            ],
-            food: [
-                { id: 'main-dishes-section', key: 'main-dishes' },
-                { id: 'addons-section', key: 'add-ons' }
-            ],
-            shesha: [
-                { id: 'classic-shisha-section', key: 'classic' },
-                { id: 'premium-shisha-section', key: 'premium' },
-                { id: 'shisha-addons-section', key: 'add-ons' }
-            ]
-        };
+// تحميل قائمة المشروبات
+async function loadDrinksMenu() {
+    const sections = [
+        { id: 'coffee-section', url: `${baseUrl}/drinks/coffee.json` },
+        { id: 'soft-drinks-section', url: `${baseUrl}/drinks/soft-drinks.json` },
+        { id: 'desserts-section', url: `${baseUrl}/drinks/desserts.json` },
+        { id: 'cold-drinks-section', url: `${baseUrl}/drinks/cold-drinks.json` }
+    ];
 
-        const pageSections = sections[this.currentPage] || [];
-        
-        for (const section of pageSections) {
-            await this.renderSection(section.id, section.key);
-        }
-    }
-
-    // تهيئة المحمل
-    init() {
-        if (this.currentPage) {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.loadAllSections();
-            });
-        }
+    for (const section of sections) {
+        const data = await loadJsonData(section.url);
+        renderSection(section.id, data);
     }
 }
 
-// تهيئة المحمل وتشغيله
-const menuLoader = new MenuLoader();
-menuLoader.init();
+// تحميل قائمة الطعام
+async function loadFoodMenu() {
+    const sections = [
+        { id: 'main-dishes-section', url: `${baseUrl}/food/main-dishes.json` },
+        { id: 'addons-section', url: `${baseUrl}/food/add-ons.json` }
+    ];
 
-// دالة مساعدة للتحميل اليدوي من الصفحات الأخرى
-window.loadMenuData = function() {
-    menuLoader.loadAllSections();
-};
+    for (const section of sections) {
+        const data = await loadJsonData(section.url);
+        renderSection(section.id, data);
+    }
+}
+
+// تحميل قائمة الشيشة
+async function loadSheshaMenu() {
+    const sections = [
+        { id: 'classic-shisha-section', url: `${baseUrl}/shesha/classic.json` },
+        { id: 'premium-shisha-section', url: `${baseUrl}/shesha/premium.json` },
+        { id: 'shisha-addons-section', url: `${baseUrl}/shesha/add-ons.json` }
+    ];
+
+    for (const section of sections) {
+        const data = await loadJsonData(section.url);
+        renderSection(section.id, data);
+    }
+}
+
+// جعل الدوال متاحة globally
+window.loadDrinksMenu = loadDrinksMenu;
+window.loadFoodMenu = loadFoodMenu;
+window.loadSheshaMenu = loadSheshaMenu;
