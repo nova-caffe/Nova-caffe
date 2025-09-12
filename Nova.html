@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA | نوفا كافيه</title>
+    <title>NOVA Cafe - Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -16,46 +16,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0a;
             color: #e0e0e0;
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .logo {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        
-        .logo-text {
-            font-size: 5rem;
-            font-weight: 300;
-            color: #d4af37;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-        
-        .logo-subtitle {
-            font-size: 1.2rem;
-            color: #888;
-            letter-spacing: 5px;
-            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            width: 100vw;
         }
         
         .pdf-container {
             width: 100%;
-            max-width: 900px;
-            height: 80vh;
-            margin: 0 auto 30px;
-            background: #000;
-            border: 1px solid #222;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
         
         .pdf-viewer {
@@ -64,15 +37,74 @@
             border: none;
         }
         
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            color: #d4af37;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .logo:hover {
+            opacity: 1;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+            background: rgba(10, 10, 10, 0.8);
+            padding: 10px 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid #222;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .controls:hover {
+            opacity: 1;
+        }
+        
+        .control-btn {
+            background: #d4af37;
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: #e6c158;
+        }
+        
         .designer-credit {
             position: fixed;
             bottom: 20px;
             left: 20px;
             color: #d4af37;
             font-size: 14px;
-            z-index: 1000;
+            z-index: 100;
             opacity: 0.7;
             transition: opacity 0.3s ease;
+            background: rgba(10, 10, 10, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
         }
         
         .designer-credit:hover {
@@ -85,42 +117,123 @@
             right: 20px;
             color: #666;
             font-size: 12px;
-            z-index: 1000;
+            z-index: 100;
             opacity: 0.7;
+            background: rgba(10, 10, 10, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
         }
         
-        /* تأثيرات خفية */
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-            50% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
-            100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-        }
-        
-        .logo-text {
-            animation: glow 4s infinite ease-in-out;
-        }
-        
-        /* أنيميشن خلفية خفية */
-        body::before {
-            content: "";
+        .loading {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 1) 100%);
-            z-index: -1;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            border-top-color: #d4af37;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #d4af37;
+            font-size: 18px;
+        }
+        
+        .error-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error-icon {
+            font-size: 48px;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+        }
+        
+        .download-link {
+            color: #d4af37;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid #d4af37;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .download-link:hover {
+            background: rgba(212, 175, 55, 0.1);
         }
     </style>
 </head>
 <body>
-    <div class="logo">
-        <div class="logo-text">NOVA</div>
-        <div class="logo-subtitle">cafe</div>
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">جاري تحميل القائمة...</div>
     </div>
     
+    <div class="error-message">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h2>تعذر تحميل القائمة</h2>
+        <p>يوجد مشكلة في تحميل ملف القائمة. يرجى المحاولة لاحقاً أو تحميل الملف مباشرة.</p>
+        <a href="https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf" class="download-link">
+            <i class="fas fa-download"></i> تحميل القائمة
+        </a>
+    </div>
+
+    <div class="logo">NOVA</div>
+    
     <div class="pdf-container">
-        <iframe src="menu-compressed.pdf" class="pdf-viewer"></iframe>
+        <iframe src="https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf" class="pdf-viewer"></iframe>
+    </div>
+    
+    <div class="controls">
+        <div class="control-btn" onclick="zoomIn()">
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="control-btn" onclick="zoomOut()">
+            <i class="fas fa-minus"></i>
+        </div>
+        <div class="control-btn" onclick="resetZoom()">
+            <i class="fas fa-sync-alt"></i>
+        </div>
+        <div class="control-btn" onclick="downloadPDF()">
+            <i class="fas fa-download"></i>
+        </div>
     </div>
     
     <div class="designer-credit">
@@ -132,14 +245,83 @@
     </div>
 
     <script>
-        // تأثيرات بسيطة عند التمرير
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-            const logo = document.querySelector('.logo');
-            
-            logo.style.transform = `translateY(${scrollPosition * 0.2}px)`;
-            logo.style.opacity = 1 - (scrollPosition / 300);
+        // إعدادات وعناصر التحكم
+        let scale = 1;
+        const pdfViewer = document.querySelector('.pdf-viewer');
+        const loading = document.querySelector('.loading');
+        const errorMessage = document.querySelector('.error-message');
+        
+        // إخفاء شاشة التحميل عند اكتمال تحميل PDF
+        pdfViewer.addEventListener('load', function() {
+            setTimeout(() => {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1000);
         });
+        
+        // التحقق من وجود خطأ في تحميل PDF
+        pdfViewer.addEventListener('error', function() {
+            loading.style.display = 'none';
+            errorMessage.style.display = 'flex';
+        });
+        
+        // وظائف التكبير والتصغير
+        function zoomIn() {
+            scale += 0.1;
+            applyScale();
+        }
+        
+        function zoomOut() {
+            if (scale > 0.5) {
+                scale -= 0.1;
+                applyScale();
+            }
+        }
+        
+        function resetZoom() {
+            scale = 1;
+            applyScale();
+        }
+        
+        function applyScale() {
+            pdfViewer.style.transform = `scale(${scale})`;
+            pdfViewer.style.transformOrigin = 'center center';
+        }
+        
+        // تحميل PDF
+        function downloadPDF() {
+            window.open('https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf', '_blank');
+        }
+        
+        // إخفاء العناصر عند عدم النشاط
+        let inactivityTime = function () {
+            let time;
+            window.onload = resetTimer;
+            document.onmousemove = resetTimer;
+            document.onkeypress = resetTimer;
+            
+            function hideControls() {
+                document.querySelector('.controls').style.opacity = '0';
+                document.querySelector('.designer-credit').style.opacity = '0';
+                document.querySelector('.copyright').style.opacity = '0';
+            }
+            
+            function showControls() {
+                document.querySelector('.controls').style.opacity = '0.7';
+                document.querySelector('.designer-credit').style.opacity = '0.7';
+                document.querySelector('.copyright').style.opacity = '0.7';
+            }
+            
+            function resetTimer() {
+                showControls();
+                clearTimeout(time);
+                time = setTimeout(hideControls, 3000);
+            }
+        };
+        
+        inactivityTime();
     </script>
 </body>
 </html>
