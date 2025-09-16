@@ -1,327 +1,138 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA Cafe - Menu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            overflow: hidden;
-            position: relative;
-            height: 100vh;
-            width: 100vw;
-        }
-        
-        .pdf-container {
-            width: 100%;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        .pdf-viewer {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .logo {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            color: #d4af37;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-        
-        .logo:hover {
-            opacity: 1;
-        }
-        
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            gap: 10px;
-            background: rgba(10, 10, 10, 0.8);
-            padding: 10px 15px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-            border: 1px solid #222;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-        
-        .controls:hover {
-            opacity: 1;
-        }
-        
-        .control-btn {
-            background: #d4af37;
-            color: #000;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .control-btn:hover {
-            transform: scale(1.1);
-            background: #e6c158;
-        }
-        
-        .designer-credit {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            color: #d4af37;
-            font-size: 14px;
-            z-index: 100;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-            background: rgba(10, 10, 10, 0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        .designer-credit:hover {
-            opacity: 1;
-        }
-        
-        .copyright {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            color: #666;
-            font-size: 12px;
-            z-index: 100;
-            opacity: 0.7;
-            background: rgba(10, 10, 10, 0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 1000;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            border-top-color: #d4af37;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            color: #d4af37;
-            font-size: 18px;
-        }
-        
-        .error-message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 1000;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .error-icon {
-            font-size: 48px;
-            color: #ff4d4d;
-            margin-bottom: 20px;
-        }
-        
-        .download-link {
-            color: #d4af37;
-            margin-top: 20px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border: 1px solid #d4af37;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .download-link:hover {
-            background: rgba(212, 175, 55, 0.1);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA CAFFE</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    overflow-x: hidden;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  #splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #splash h1 {
+    font-size: 2em;
+    color: #fff;
+    text-shadow: 0 0 20px #fff;
+  }
+  header {
+    text-align: center;
+    padding: 20px 0;
+    background: #000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  header h1 {
+    color: #fff;
+    text-shadow: 0 0 20px #fff, 0 0 40px #fff;
+    margin: 0;
+    font-size: 2em;
+  }
+  #pdf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: #000;
+  }
+  #pdf-container canvas {
+    display: block;
+    width: 100vw;
+    height: auto;
+    margin: 0 auto;
+    background: #000;
+  }
+  #download {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+  }
+  footer {
+    text-align: center;
+    color: #aaa;
+    padding: 20px;
+    font-size: 0.9em;
+  }
+  #designer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    font-size: 0.8em;
+    text-decoration: none;
+    z-index: 1000;
+  }
+</style>
 </head>
 <body>
-    <div class="loading">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">جاري تحميل القائمة...</div>
-    </div>
-    
-    <div class="error-message">
-        <div class="error-icon">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <h2>تعذر تحميل القائمة</h2>
-        <p>يوجد مشكلة في تحميل ملف القائمة. يرجى المحاولة لاحقاً أو تحميل الملف مباشرة.</p>
-        <a href="https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf" class="download-link">
-            <i class="fas fa-download"></i> تحميل القائمة
-        </a>
-    </div>
+<div id="splash"><h1>Loading NOVA CAFFE Menu...</h1></div>
+<header>
+  <h1>NOVA CAFFE</h1>
+  <a id="download" href="https://github.com/nova-caffe/Nova-caffe/raw/main/NOVA-MENU.pdf" download>↓ Download</a>
+</header>
+<div id="pdf-container"></div>
+<footer>All rights reserved — site: kerolos sobhy 2025</footer>
+<a id="designer">design by: kerolos sobhy</a><script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script><script>
+  const container = document.getElementById('pdf-container');
+  const url = 'https://github.com/nova-caffe/Nova-caffe/raw/main/NOVA-MENU.pdf';
 
-    <div class="logo">NOVA</div>
-    
-    <div class="pdf-container">
-        <iframe src="https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf" class="pdf-viewer"></iframe>
-    </div>
-    
-    <div class="controls">
-        <div class="control-btn" onclick="zoomIn()">
-            <i class="fas fa-plus"></i>
-        </div>
-        <div class="control-btn" onclick="zoomOut()">
-            <i class="fas fa-minus"></i>
-        </div>
-        <div class="control-btn" onclick="resetZoom()">
-            <i class="fas fa-sync-alt"></i>
-        </div>
-        <div class="control-btn" onclick="downloadPDF()">
-            <i class="fas fa-download"></i>
-        </div>
-    </div>
-    
-    <div class="designer-credit">
-        Designed by Kerolos
-    </div>
-    
-    <div class="copyright">
-        © 2025 Kerolos Sobhy. All Rights Reserved.
-    </div>
+  pdfjsLib.getDocument(url).promise.then(function(pdf) {
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      pdf.getPage(pageNum).then(function(page) {
+        const viewport = page.getViewport({ scale: 1 });
+        const scale = window.innerWidth / viewport.width; // fit full width
+        const scaledViewport = page.getViewport({ scale });
 
-    <script>
-        // إعدادات وعناصر التحكم
-        let scale = 1;
-        const pdfViewer = document.querySelector('.pdf-viewer');
-        const loading = document.querySelector('.loading');
-        const errorMessage = document.querySelector('.error-message');
-        
-        // إخفاء شاشة التحميل عند اكتمال تحميل PDF
-        pdfViewer.addEventListener('load', function() {
-            setTimeout(() => {
-                loading.style.opacity = '0';
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                }, 500);
-            }, 1000);
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = scaledViewport.height;
+        canvas.width = scaledViewport.width;
+
+        page.render({
+          canvasContext: context,
+          viewport: scaledViewport
         });
-        
-        // التحقق من وجود خطأ في تحميل PDF
-        pdfViewer.addEventListener('error', function() {
-            loading.style.display = 'none';
-            errorMessage.style.display = 'flex';
-        });
-        
-        // وظائف التكبير والتصغير
-        function zoomIn() {
-            scale += 0.1;
-            applyScale();
-        }
-        
-        function zoomOut() {
-            if (scale > 0.5) {
-                scale -= 0.1;
-                applyScale();
-            }
-        }
-        
-        function resetZoom() {
-            scale = 1;
-            applyScale();
-        }
-        
-        function applyScale() {
-            pdfViewer.style.transform = `scale(${scale})`;
-            pdfViewer.style.transformOrigin = 'center center';
-        }
-        
-        // تحميل PDF
-        function downloadPDF() {
-            window.open('https://github.com/nova-caffe/Nova-caffe/blob/main/menu-compressed.pdf', '_blank');
-        }
-        
-        // إخفاء العناصر عند عدم النشاط
-        let inactivityTime = function () {
-            let time;
-            window.onload = resetTimer;
-            document.onmousemove = resetTimer;
-            document.onkeypress = resetTimer;
-            
-            function hideControls() {
-                document.querySelector('.controls').style.opacity = '0';
-                document.querySelector('.designer-credit').style.opacity = '0';
-                document.querySelector('.copyright').style.opacity = '0';
-            }
-            
-            function showControls() {
-                document.querySelector('.controls').style.opacity = '0.7';
-                document.querySelector('.designer-credit').style.opacity = '0.7';
-                document.querySelector('.copyright').style.opacity = '0.7';
-            }
-            
-            function resetTimer() {
-                showControls();
-                clearTimeout(time);
-                time = setTimeout(hideControls, 3000);
-            }
-        };
-        
-        inactivityTime();
-    </script>
-</body>
+
+        canvas.style.display = "block";
+        canvas.style.width = "100vw";
+        canvas.style.height = "auto";
+        canvas.style.margin = "0 auto";
+        container.appendChild(canvas);
+      });
+    }
+  });
+
+  // Splash screen hide after 3s or when pdf loads
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      document.getElementById('splash').style.display='none';
+    },3000);
+  });
+</script></body>
 </html>
