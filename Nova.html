@@ -294,6 +294,37 @@
                 min-height: 400px;
             }
         }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #ff6b6b;
+            font-size: 1.1rem;
+        }
+
+        .retry-btn {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            border-radius: 5px;
+            color: #ff6b6b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .retry-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -307,8 +338,8 @@
             <h1 class="logo">NOVA CAFE</h1>
             
             <div class="tabs">
-                <button class="tab-btn active" data-pdf="NOVA DRINK.pdf">قائمة المشروبات</button>
-                <button class="tab-btn" data-pdf="NOVA FOOD.pdf">قائمة المأكولات</button>
+                <button class="tab-btn active" data-pdf="https://nova-caffe.github.io/Nova-caffe/NOVA%20DRINK.pdf.pdf">قائمة المشروبات</button>
+                <button class="tab-btn" data-pdf="https://nova-caffe.github.io/Nova-caffe/NOVA%20FOOD.pdf.pdf">قائمة المأكولات</button>
             </div>
         </div>
         
@@ -318,7 +349,12 @@
             </div>
             
             <div class="pdf-viewer">
-                <iframe src="NOVA DRINK.pdf" class="pdf-iframe" id="pdf-viewer" frameborder="0"></iframe>
+                <div class="loading" id="loading">جاري تحميل الملف...</div>
+                <div class="error-message" id="error-message">
+                    حدث خطأ في تحميل الملف
+                    <button class="retry-btn" onclick="retryLoading()">إعادة المحاولة</button>
+                </div>
+                <iframe src="https://nova-caffe.github.io/Nova-caffe/NOVA%20DRINK.pdf.pdf" class="pdf-iframe" id="pdf-viewer" frameborder="0"></iframe>
             </div>
         </div>
         
@@ -359,6 +395,27 @@
             const tabButtons = document.querySelectorAll('.tab-btn');
             const pdfViewer = document.getElementById('pdf-viewer');
             const pdfTitle = document.getElementById('pdf-title');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+            
+            // إظهار رسالة التحميل
+            pdfViewer.style.display = 'none';
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // عندما يتم تحميل الـ PDF الأول
+            pdfViewer.onload = function() {
+                pdfViewer.style.display = 'block';
+                loading.style.display = 'none';
+                errorMessage.style.display = 'none';
+            };
+            
+            // عند حدوث خطأ في تحميل PDF
+            pdfViewer.onerror = function() {
+                pdfViewer.style.display = 'none';
+                loading.style.display = 'none';
+                errorMessage.style.display = 'block';
+            };
             
             // تغيير بين ملفات PDF
             tabButtons.forEach(button => {
@@ -370,10 +427,38 @@
                     
                     // تغيير ملف PDF المعروض
                     const pdfFile = this.getAttribute('data-pdf');
+                    const fileName = pdfFile.includes('DRINK') ? 'NOVA DRINK.pdf' : 'NOVA FOOD.pdf';
+                    
+                    pdfTitle.textContent = fileName;
+                    
+                    // إظهار رسالة التحميل
+                    pdfViewer.style.display = 'none';
+                    loading.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    
+                    // تغيير مصدر الـ PDF
                     pdfViewer.src = pdfFile;
-                    pdfTitle.textContent = pdfFile;
                 });
             });
+
+            // إعادة إظهار الـ PDF بعد التحميل
+            pdfViewer.addEventListener('load', function() {
+                pdfViewer.style.display = 'block';
+                loading.style.display = 'none';
+                errorMessage.style.display = 'none';
+            });
+
+            // إعادة المحاولة عند حدوث خطأ
+            window.retryLoading = function() {
+                const activeTab = document.querySelector('.tab-btn.active');
+                const pdfFile = activeTab.getAttribute('data-pdf');
+                
+                pdfViewer.style.display = 'none';
+                loading.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                pdfViewer.src = pdfFile;
+            };
         });
     </script>
 </body>
